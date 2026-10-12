@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - María Fernanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Azul Celeste y Plata */
+            --bg-cream: #f2f7fa;
+            --blue-1: #e1f0f8;
+            --blue-2: #cbe6f5;
+            --blue-3: #a4d4ec;
+            --main-primary: #7ec8e3; /* Azul Celeste */
+            --main-primary-deep: #418bb0; /* Azul Profundo / Acento */
+            
+            /* Tonos de transición Plata */
+            --rg-1: #f8f9fa;
+            --rg-2: #e9ecef;
+            --rg-3: #ced4da;
+            --main-secondary: #adb5bd; /* Plata Medio */
+            --secondary-light: #dee2e6;
+            
+            --text-dark: #2c3e50;
+            --text-muted: #6c757d;
+            --white: #ffffff;
+            --glow: rgba(126, 200, 227, 0.6);
+            --glow-silver: rgba(173, 181, 189, 0.5);
+            --frame-pad: 16px;
+            --frame-pad-top: 30px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(165deg, #e6f3f8 0%, #f0f7fa 45%, #fdfdfd 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ----- Pantalla del Sobre ----- */
+        #envelope-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #dceef7 0%, #eef5f9 100%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.2s ease-in-out, visibility 1.2s;
+            overflow: hidden;
+        }
+        #envelope-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transform: scale(0.9);
+            transition: transform 0.5s ease;
+            animation: gentleFloat 3.5s ease-in-out infinite;
+        }
+        .envelope-wrapper:hover { transform: scale(0.95); }
+
+        @keyframes gentleFloat {
+            0%, 100% { translate: 0 0; }
+            50% { translate: 0 -8px; }
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px; height: 215px;
+            background: linear-gradient(155deg, #e6f2f8 0%, #aecddb 100%);
+            border-radius: 6px 6px 12px 12px;
+            box-shadow: 0 25px 50px rgba(65, 139, 176, 0.32), 0 0 0 1px rgba(173, 181, 189, 0.35);
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 0; height: 0;
+            border-right: 160px solid #d5ebf5;
+            border-top: 107px solid transparent;
+            border-bottom: 108px solid #d5ebf5;
+            border-radius: 0 0 12px 0;
+            z-index: 2;
+        }
+        .envelope::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-left: 160px solid #e1f0f8;
+            border-top: 107px solid transparent;
+            border-bottom: 108px solid #e1f0f8;
+            border-radius: 0 0 0 12px;
+            z-index: 2;
+        }
+
+        .front-flap {
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 116px solid var(--main-secondary);
+            transform-origin: top;
+            transition: transform 0.6s ease 0.2s;
+            z-index: 4;
+            filter: drop-shadow(0 6px 14px rgba(65, 139, 176, 0.25));
+        }
+        .envelope-wrapper.open .front-flap { transform: rotateX(180deg); z-index: 1; }
+
+        .wax-seal {
+            position: absolute;
+            top: 98px; left: 50%;
+            transform: translateX(-50%);
+            width: 62px; height: 62px;
+            background: radial-gradient(circle, var(--blue-3) 0%, var(--main-primary-deep) 65%, #2a617d 100%);
+            border-radius: 50%;
+            z-index: 5;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 15px rgba(65, 139, 176, 0.45), inset 0 2px 4px rgba(255,255,255,0.6);
+            transition: transform 0.4s ease, opacity 0.4s ease 0.4s;
+        }
+        .wax-seal svg { width: 30px; height: 30px; fill: #fff; opacity: 0.95; }
+        .envelope-wrapper.open .wax-seal { transform: translateX(-50%) scale(0); opacity: 0; }
+
+        .envelope-text {
+            position: absolute; bottom: -65px; width: 100%;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            color: var(--main-primary-deep);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .hint-text {
+            position: absolute; bottom: -95px; width: 100%;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            opacity: 0.85;
+            animation: pulse 2s infinite;
+        }
+
+        /* ----- Contenido Principal ----- */
+        #main-invitation {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 16px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-out 0.6s, transform 1.5s ease-out 0.6s;
+            z-index: 2;
+        }
+        body.content-active #main-invitation { opacity: 1; transform: translateY(0); }
+
+        .invitation-frame {
+            max-width: 560px;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            background: linear-gradient(170deg, #ffffff 0%, #f4f9fb 45%, #f8fbfc 100%);
+            box-shadow: 0 15px 55px rgba(65, 139, 176, 0.15);
+            margin-bottom: 40px;
+            z-index: 3;
+            border-radius: 26px;
+            padding: 40px 18px 30px;
+            overflow: hidden;
+        }
+        .invitation-frame::before,
+        .invitation-frame::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(8px);
+            z-index: 0;
+            opacity: 0.45;
+        }
+        .invitation-frame::before {
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, var(--blue-2), transparent 70%);
+            top: -70px; left: -60px;
+        }
+        .invitation-frame::after {
+            width: 220px; height: 220px;
+            background: radial-gradient(circle, var(--rg-3), transparent 70%);
+            bottom: -80px; right: -70px;
+        }
+        .invitation-frame > * { position: relative; z-index: 1; }
+
+        .frame-inner-border {
+            border: 1.5px solid;
+            border-image: linear-gradient(135deg, var(--main-secondary), var(--main-primary), var(--main-secondary)) 1;
+            border-radius: 20px;
+            padding: var(--frame-pad-top) var(--frame-pad);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .hero-photo-frame {
+            position: relative;
+            width: calc(100% + (2 * var(--frame-pad)));
+            margin: calc(-1 * var(--frame-pad-top)) calc(-1 * var(--frame-pad)) 30px;
+            border-radius: 20px 20px 32px 32px;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(65, 139, 176, 0.28);
+            max-width: calc(100% + (2 * var(--frame-pad)));
+        }
+        .hero-photo {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            filter: saturate(1.1) contrast(105%);
+        }
+        .hero-overlay {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            padding: 60px 16px 30px;
+            background: linear-gradient(to top, rgba(16, 42, 67, 0.8) 0%, rgba(16, 42, 67, 0.3) 55%, transparent 100%);
+            text-align: center;
+        }
+        .hero-tag {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(11px, 3.2vw, 13px);
+            letter-spacing: 4px;
+            color: var(--rg-2);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .hero-name {
+            font-family: 'Pinyon Script', cursive;
+            font-size: clamp(2.6rem, 12vw, 4rem);
+            line-height: 1.15;
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4), 0 0 24px var(--glow);
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+        }
+        .hero-name .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(18px) scale(0.8);
+            animation: letterIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        @media (max-width: 400px) {
+            .hero-photo { height: 380px; }
+            .hero-overlay { padding: 40px 12px 20px; }
+        }
+
+        .icon-badge {
+            width: 66px; height: 66px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 14px auto;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+        .icon-badge svg { width: 32px; height: 32px; }
+        .badge-blue { background: linear-gradient(135deg, var(--main-primary), var(--main-primary-deep)); }
+        .badge-silver { background: linear-gradient(135deg, var(--main-secondary), var(--rg-3)); }
+
+        .phrase {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            font-style: italic;
+        }
+
+        .divider {
+            width: 90px; height: 3px;
+            border-radius: 3px;
+            background: linear-gradient(to right, var(--main-primary), var(--main-secondary));
+            margin: 30px auto;
+            position: relative;
+        }
+        .divider::before {
+            content: '✦';
+            position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%);
+            color: var(--main-primary-deep);
+            font-size: 16px;
+            background: var(--white);
+            padding: 0 6px;
+            text-shadow: 0 0 8px var(--glow);
+        }
+
+        .info-block { margin-bottom: 8px; }
+
+        .info-label {
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: var(--main-primary-deep);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .section-silver .info-label { color: var(--main-primary-deep); }
+
+        .info-value-main {
+            font-family: 'Cinzel', serif;
+            font-size: 27px;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+        }
+
+        .names-cursive {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 34px;
+            color: var(--text-dark);
+            margin: 6px 0;
+            line-height: 1.2;
+        }
+
+        .invitation-photo {
+            width: 100%; height: auto;
+            border-radius: 16px;
+            box-shadow: 0 12px 28px rgba(65, 139, 176, 0.22);
+            margin: 22px 0 4px;
+            filter: saturate(1.08) contrast(103%);
+            border: 4px solid #fff;
+        }
+
+        /* Secciones */
+        .section-card {
+            position: relative;
+            border-radius: 24px;
+            padding: 32px 20px 26px;
+            margin: 30px 0;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .section-blue {
+            background: linear-gradient(155deg, var(--blue-1) 0%, var(--blue-2) 100%);
+            box-shadow: 0 10px 26px rgba(126, 200, 227, 0.25);
+        }
+        .section-silver {
+            background: linear-gradient(155deg, var(--rg-1) 0%, var(--rg-2) 100%);
+            box-shadow: 0 10px 26px rgba(173, 181, 189, 0.25);
+        }
+        .section-card::before {
+            content: '';
+            position: absolute;
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+        .section-blue::before { background: var(--rg-3); top: -45px; right: -35px; }
+        .section-silver::before { background: var(--blue-3); bottom: -45px; left: -35px; }
+        .section-card .divider { background: linear-gradient(to right, transparent, var(--main-primary-deep), var(--main-secondary), transparent); }
+
+        /* Countdown */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 22px 0;
+            flex-wrap: nowrap;
+        }
+        .countdown-box {
+            display: flex; flex-direction: column; align-items: center;
+            border-radius: 14px;
+            padding: 10px 4px;
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 76px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+        .countdown-box:nth-child(odd) { background: linear-gradient(155deg, var(--blue-1), var(--blue-2)); }
+        .countdown-box:nth-child(even) { background: linear-gradient(155deg, var(--rg-1), var(--rg-2)); }
+        .countdown-number {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(17px, 5.5vw, 25px);
+            color: var(--main-primary-deep);
+            font-weight: bold;
+        }
+        .countdown-box:nth-child(even) .countdown-number { color: var(--text-dark); }
+        .countdown-label {
+            font-size: clamp(8px, 2.4vw, 10px);
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 5px;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Calendar */
+        .calendar-container {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 22px auto;
+            background: linear-gradient(160deg, var(--white) 0%, var(--rg-1) 100%);
+            padding: 18px 14px;
+            border-radius: 16px;
+            box-shadow: 0 10px 24px rgba(65, 139, 176, 0.15);
+        }
+        .calendar-month {
+            font-family: 'Cinzel', serif;
+            font-size: 17px;
+            color: var(--main-primary-deep);
+            margin-bottom: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            font-size: 13px;
+        }
+        .calendar-day-header {
+            color: var(--main-primary-deep);
+            font-weight: bold;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--main-secondary);
+            font-size: 12px;
+        }
+        .calendar-day {
+            padding: 4px 0;
+            color: var(--text-dark);
+            display: flex; justify-content: center; align-items: center;
+            aspect-ratio: 1;
+            border-radius: 50%;
+        }
+        .calendar-day.active {
+            background: linear-gradient(135deg, var(--main-primary), var(--main-primary-deep));
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 0 14px var(--glow);
+            animation: pulse-glow 2s infinite;
+        }
+        .calendar-day.empty { color: transparent; }
+
+        @media (max-width: 380px) {
+            .calendar-grid { gap: 2px; font-size: 11px; }
+            .calendar-container { padding: 14px 8px; }
+        }
+
+        /* Botones */
+        .btn-gold {
+            display: inline-block;
+            color: #fff;
+            border: none;
+            padding: 15px 28px;
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+            width: auto;
+            background: linear-gradient(120deg, var(--main-primary), var(--main-primary-deep));
+            box-shadow: 0 8px 18px rgba(65, 139, 176, 0.3);
+        }
+        .section-silver .btn-gold {
+            background: linear-gradient(120deg, var(--main-secondary), var(--text-muted));
+            box-shadow: 0 8px 18px rgba(173, 181, 189, 0.35);
+        }
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+        }
+
+        /* Mapa y Listas */
+        .map-container {
+            width: 100%;
+            height: 240px;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+            border: 4px solid #fff;
+        }
+        .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+        .itinerary-list {
+            list-style: none;
+            margin: 18px 0 0 0;
+            padding: 0;
+            text-align: left;
+            max-width: 340px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .itinerary-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            position: relative;
+            padding-bottom: 26px;
+        }
+        .itinerary-item:last-child { padding-bottom: 0; }
+        .itinerary-item::before {
+            content: '';
+            position: absolute;
+            left: 6px; top: 20px; bottom: -6px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--main-primary), var(--main-secondary));
+        }
+        .itinerary-item:last-child::before { display: none; }
+        .itinerary-dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--main-primary), var(--main-primary-deep));
+            margin-top: 5px;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px var(--glow);
+        }
+        .itinerary-time {
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            color: var(--main-primary-deep);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .itinerary-activity {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-top: 3px;
+        }
+
+        /* Formularios */
+        .form-container {
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+            z-index: 10;
+        }
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1.5px solid rgba(65, 139, 176, 0.35);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            border-radius: 10px;
+            outline: none;
+            transition: border 0.3s;
+        }
+        .form-input:focus { border-color: var(--main-primary-deep); }
+        .form-input::placeholder { color: var(--text-muted); }
+        select.form-input option { background: var(--white); color: var(--text-dark); padding: 10px; }
+        textarea.form-input { resize: vertical; min-height: 90px; }
+
+        /* Magia & Animaciones */
+        #fireflies-container {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+        .firefly {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float-around infinite ease-in-out;
+            opacity: 0;
+        }
+
+        #music-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 58px; height: 58px;
+            background: linear-gradient(135deg, var(--main-primary), var(--main-primary-deep));
+            border: none;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 2000;
+            cursor: pointer;
+            box-shadow: 0 6px 20px var(--glow);
+            transition: all 0.3s ease;
+            opacity: 0; visibility: hidden; transform: scale(0.8);
+        }
+        body.content-active #music-btn { opacity: 1; visibility: visible; transform: scale(1); }
+        #music-btn:hover { transform: scale(1.1); }
+        #music-btn svg { width: 26px; height: 26px; fill: #fff; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.9s cubic-bezier(.2,.7,.3,1), transform 0.9s cubic-bezier(.2,.7,.3,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        
+        .reveal-scale { opacity: 0; transform: scale(0.85); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal-scale.visible { opacity: 1; transform: scale(1); }
+        
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        @keyframes pulse-glow { 0% { box-shadow: 0 0 10px var(--glow); } 50% { box-shadow: 0 0 20px var(--main-primary-deep); } 100% { box-shadow: 0 0 10px var(--glow); } }
+        
+        @keyframes float-around {
+            0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0; }
+            10% { opacity: 0.9; }
+            50% { opacity: 1; box-shadow: 0 0 15px 4px rgba(255,255,255,0.8); }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) translateX(40px) scale(1.3); opacity: 0; }
+        }
+        
+        @keyframes letterIn { 
+            to { opacity: 1; transform: translateY(0) scale(1); } 
+        }
+
+        @media (max-width: 400px) {
+            :root { --frame-pad: 10px; --frame-pad-top: 24px; }
+            .envelope { width: 285px; height: 195px; }
+            .envelope::before { border-right-width: 142px; border-top-width: 97px; border-bottom-width: 98px; }
+            .envelope::after { border-left-width: 142px; border-top-width: 97px; border-bottom-width: 98px; }
+            .front-flap { border-left-width: 142px; border-right-width: 142px; border-top-width: 105px; }
+            .wax-seal { top: 88px; }
+            .invitation-frame { padding: 30px 10px 24px; }
+            .section-card { padding: 24px 14px 20px; }
+            .names-cursive { font-size: 28px; }
+            #music-btn { bottom: 20px; right: 20px; width: 48px; height: 48px; }
+            #music-btn svg { width: 20px; height: 20px; }
+            .map-container { height: 210px; }
+        }
+        @media (max-width: 340px) {
+            .countdown-container { gap: 6px; }
+            .countdown-box { padding: 8px 2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="fireflies-container"></div>
+
+    <audio id="bg-music" src="assets/song.mp3" loop></audio>
+
+    <button id="music-btn" onclick="toggleMusic()" aria-label="Reproducir/Pausar Música">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+
+    <div id="envelope-screen">
+        <div class="envelope-wrapper" onclick="openEnvelope()">
+            <div class="front-flap"></div>
+            <div class="wax-seal">
+                <svg viewBox="0 0 24 24">
+                    <path d="M5 17.5c0-.28.22-.5.5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM3.5 8.2a1 1 0 0 1 1.55-.83L8 9.3l3.15-4.62a1 1 0 0 1 1.7 0L16 9.3l2.95-1.93a1 1 0 0 1 1.55.83L19.6 16H4.4L3.5 8.2z"/>
+                </svg>
+            </div>
+            <div class="envelope"></div>
+            <div class="envelope-text">Mis XV Años<br><span style="color: var(--text-dark); font-size: 18px; letter-spacing: 5px;">María Fernanda</span></div>
+            <div class="hint-text">Toca el sello mágico para abrir</div>
+        </div>
+    </div>
+
+    <main id="main-invitation">
+        <div class="invitation-frame">
+            <div class="frame-inner-border">
+
+            <!-- FOTO 1: Hero -->
+            <div class="hero-photo-frame reveal-scale">
+                <img src="assets/1.jpg" alt="María Fernanda" class="hero-photo">
+                <div class="hero-overlay">
+                    <div class="hero-tag">Mis XV Años</div>
+                    <h1 class="hero-name" id="main-title-anim"></h1>
+                </div>
+            </div>
+
+            <p class="phrase reveal">
+                "Hay momentos inolvidables que se conservan en el corazón para siempre, por esta razón con la bendición de Dios y de mis padres quiero que compartas conmigo este dia tan especial"
+            </p>
+
+            <!-- FOTO 2: Acompañando la frase -->
+            <img src="assets/2.jpg" alt="María Fernanda" class="invitation-photo reveal-scale">
+
+            <div class="info-block reveal" style="margin-top: 25px;">
+                <div class="info-label">Fecha del Evento</div>
+                <div class="info-value-main" style="color: var(--main-primary-deep);">28 de Noviembre</div>
+            </div>
+
+            <div class="countdown-container reveal-left">
+                <div class="countdown-box"><div class="countdown-number" id="days">00</div><div class="countdown-label">Días</div></div>
+                <div class="countdown-box"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Hrs</div></div>
+                <div class="countdown-box"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Min</div></div>
+                <div class="countdown-box"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Seg</div></div>
+            </div>
+
+            <div class="calendar-container reveal-scale">
+                <div class="calendar-month">Noviembre 2026</div>
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">D</div>
+                    <div class="calendar-day-header">L</div>
+                    <div class="calendar-day-header">M</div>
+                    <div class="calendar-day-header">M</div>
+                    <div class="calendar-day-header">J</div>
+                    <div class="calendar-day-header">V</div>
+                    <div class="calendar-day-header">S</div>
+
+                    <!-- 1 de Nov es Domingo -->
+                    <div class="calendar-day">1</div>
+                    <div class="calendar-day">2</div>
+                    <div class="calendar-day">3</div>
+                    <div class="calendar-day">4</div>
+                    <div class="calendar-day">5</div>
+                    <div class="calendar-day">6</div>
+                    <div class="calendar-day">7</div>
+                    
+                    <div class="calendar-day">8</div>
+                    <div class="calendar-day">9</div>
+                    <div class="calendar-day">10</div>
+                    <div class="calendar-day">11</div>
+                    <div class="calendar-day">12</div>
+                    <div class="calendar-day">13</div>
+                    <div class="calendar-day">14</div>
+                    
+                    <div class="calendar-day">15</div>
+                    <div class="calendar-day">16</div>
+                    <div class="calendar-day">17</div>
+                    <div class="calendar-day">18</div>
+                    <div class="calendar-day">19</div>
+                    <div class="calendar-day">20</div>
+                    <div class="calendar-day">21</div>
+                    
+                    <div class="calendar-day">22</div>
+                    <div class="calendar-day">23</div>
+                    <div class="calendar-day">24</div>
+                    <div class="calendar-day">25</div>
+                    <div class="calendar-day">26</div>
+                    <div class="calendar-day">27</div>
+                    <div class="calendar-day active">28</div>
+                    
+                    <div class="calendar-day">29</div>
+                    <div class="calendar-day">30</div>
+                    <div class="calendar-day empty"></div>
+                    <div class="calendar-day empty"></div>
+                    <div class="calendar-day empty"></div>
+                    <div class="calendar-day empty"></div>
+                    <div class="calendar-day empty"></div>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=XV+A%C3%B1os+de+Mar%C3%ADa+Fernanda&dates=20261128T180000Z/20261128T230000Z&details=Acomp%C3%A1%C3%B1anos+a+celebrar+los+XV+a%C3%B1os+de+Mar%C3%ADa+Fernanda" target="_blank" class="btn-gold">
+                    Agregar al Calendario
+                </a>
+            </div>
+
+            <!-- Sección Familia 1 -->
+            <div class="section-card section-blue reveal-right">
+                <div class="icon-badge badge-blue">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </div>
+                <div class="info-block reveal">
+                    <div class="info-label">Con el amor de mis padres</div>
+                    <div class="names-cursive">Dalia Karina Melchor Olivares</div>
+                    <div class="names-cursive">&</div>
+                    <div class="names-cursive">Ove Isaías Muñoz González</div>
+                </div>
+
+                <!-- FOTO 3: Padres -->
+                <img src="assets/3.jpg" alt="Familia" class="invitation-photo reveal-scale">
+            </div>
+            
+            <!-- Sección Familia 2 -->
+            <div class="section-card section-silver reveal-left">
+                <div class="info-block reveal">
+                    <div class="info-label">Mis Abuelos</div>
+                    <div class="names-cursive" style="font-size: 28px;">Javier Melchor Peña</div>
+                    <div class="names-cursive" style="font-size: 28px;">&</div>
+                    <div class="names-cursive" style="font-size: 28px;">María del Pilar Olivares Gomes</div>
+                </div>
+                
+                <div class="divider"></div>
+
+                <div class="info-block reveal">
+                    <div class="info-label">Mis Padrinos</div>
+                    <div class="names-cursive" style="font-size: 28px;">María del Pilar Melchor Peña</div>
+                    <div class="names-cursive" style="font-size: 28px;">&</div>
+                    <div class="names-cursive" style="font-size: 28px;">Samuel Melchor Bernal</div>
+                </div>
+                
+                <!-- FOTO 4: Abuelos / Padrinos -->
+                <img src="assets/4.jpg" alt="Abuelos y Padrinos" class="invitation-photo reveal-scale">
+            </div>
+
+            <!-- Ceremonia Religiosa -->
+            <div class="section-card section-blue reveal-scale">
+                <div class="icon-badge badge-blue">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a1 1 0 0 1 1 1v1h4a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4V3a1 1 0 0 1 1-1zM6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9H6z"/></svg>
+                </div>
+                <div class="info-block">
+                    <div class="info-label">Ceremonia Religiosa</div>
+                    <div class="names-cursive" style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-style: normal; font-weight: 600;">Parroquia El Espíritu Santo</div>
+                    <div class="names-cursive" style="font-family: 'Montserrat', sans-serif; font-size: 22px; color: var(--main-primary-deep); margin: 12px 0; font-weight: bold;">6:00 p.m.</div>
+                    
+                    <div class="map-container reveal">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.6365263799876!2d-96.1511318!3d19.1673813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c341583c549655%3A0xabb0395303b42df9!2sParroquia%20El%20Espiritu%20Santo!5e0!3m2!1ses-419!2smx!4v1791769536166!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <a href="https://maps.app.goo.gl/on8x71GJLs8m428L6" target="_blank" class="btn-gold">Abrir en GPS</a>
+                </div>
+
+                <!-- FOTO 5: Ceremonia -->
+                <img src="assets/5.jpg" alt="Ceremonia" class="invitation-photo reveal-scale" style="margin-top: 20px;">
+            </div>
+            
+            <!-- Itinerario -->
+            <div class="section-card section-silver reveal-right">
+                <div class="info-block">
+                    <div class="info-label">Itinerario</div>
+                    <ul class="itinerary-list">
+                        <li class="itinerary-item reveal-left" style="transition-delay: 0.1s;">
+                            <div class="itinerary-dot"></div>
+                            <div>
+                                <div class="itinerary-time">6:00 p.m.</div>
+                                <div class="itinerary-activity">Misa</div>
+                            </div>
+                        </li>
+                        <li class="itinerary-item reveal-left" style="transition-delay: 0.2s;">
+                            <div class="itinerary-dot"></div>
+                            <div>
+                                <div class="itinerary-time">7:30 p.m.</div>
+                                <div class="itinerary-activity">Recepción</div>
+                            </div>
+                        </li>
+                        <li class="itinerary-item reveal-left" style="transition-delay: 0.3s;">
+                            <div class="itinerary-dot"></div>
+                            <div>
+                                <div class="itinerary-time">8:30 p.m.</div>
+                                <div class="itinerary-activity">Cena</div>
+                            </div>
+                        </li>
+                        <li class="itinerary-item reveal-left" style="transition-delay: 0.4s;">
+                            <div class="itinerary-dot"></div>
+                            <div>
+                                <div class="itinerary-time">11:00 p.m.</div>
+                                <div class="itinerary-activity">Grupo norteño</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- FOTO 6: Itinerario/Momentos -->
+                <img src="assets/6.jpg" alt="Momentos Especiales" class="invitation-photo reveal-scale" style="margin-top: 25px;">
+            </div>
+
+            <!-- Recepción -->
+            <div class="section-card section-blue reveal-scale">
+                <div class="icon-badge badge-blue">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+                </div>
+                <div class="info-block">
+                    <div class="info-label">Recepción</div>
+                    <div class="names-cursive" style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-style: normal; font-weight: 600;">Quinta Las Palmas "Jardin Y Lago"</div>
+                    <div class="names-cursive" style="font-family: 'Montserrat', sans-serif; font-size: 22px; color: var(--main-primary-deep); margin: 12px 0; font-weight: bold;">7:30 p.m.</div>
+                    
+                    <div class="map-container reveal">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.849597127825!2d-96.1480467!3d19.158059800000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c3415e0d610f9b%3A0xfff16f1ff5022fa3!2sQuinta%20Las%20Palmas%20%22Jardin%20Y%20Lago%22!5e0!3m2!1ses-419!2smx!4v1791769571943!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <a href="https://maps.app.goo.gl/DvF6f5jCVhjkknjp8" target="_blank" class="btn-gold">Abrir en GPS</a>
+                </div>
+
+                <!-- FOTO 7: Recepción -->
+                <img src="assets/7.jpg" alt="Lugar de Recepción" class="invitation-photo reveal-scale" style="margin-top: 20px;">
+            </div>
+
+            <!-- Código de Vestimenta -->
+            <div class="section-card section-silver reveal-left">
+                <div class="icon-badge badge-silver">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M16 2l-4 3-4-3-6 4 3 4h2v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9h2l3-4z"/></svg>
+                </div>
+                <div class="info-block">
+                    <div class="info-label">Código de Vestimenta</div>
+                    <div class="info-value-main reveal" style="font-size: 28px; margin-bottom: 12px; color: var(--main-primary-deep);">Formal</div>
+                    <div class="reveal" style="font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--text-muted); padding: 0 10px; line-height: 1.6;">
+                        (Favor de reservar el color <span style="color: var(--main-primary-deep); font-weight: bold;">Azul Celeste</span> para la festejada).
+                    </div>
+                </div>
+
+                <!-- FOTO 8: Estilo/Vestimenta -->
+                <img src="assets/8.jpg" alt="Inspiración de Vestimenta" class="invitation-photo reveal-scale" style="margin-top: 20px;">
+            </div>
+
+            <!-- Lluvia de Sobres -->
+            <div class="section-card section-blue reveal-scale">
+                <div class="icon-badge badge-blue">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M20 4H4a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM6 18v-8h12v8H6z"/></svg>
+                </div>
+                <div class="info-block reveal">
+                    <div class="info-label">Mesa de Regalos</div>
+                    <div class="info-value-main" style="font-size: 22px; margin-bottom: 10px; color: var(--main-primary-deep);">Lluvia de Sobres</div>
+                    <div style="font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--text-dark); padding: 0 15px; line-height: 1.6;">
+                        Su cariño y compañía son nuestro mayor regalo. Si está en sus posibilidades y desean tener un detalle conmigo, una lluvia de sobres será recibida con mucho agradecimiento.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Captura el Momento (Galería) -->
+            <div class="section-card section-silver reveal-right">
+                <div class="icon-badge badge-silver">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm16 2H4v1.97l8 4.66 8-4.66V6zm0 12v-8.46l-8 4.66-8-4.66V18h16z"/></svg>
+                </div>
+                <div class="info-block reveal">
+                    <div class="info-label">Captura el Momento</div>
+                    <div class="info-value-main" style="font-size: 21px; margin-bottom: 10px;">Galería en Vivo</div>
+                    <div style="font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--text-dark); padding: 0 15px; margin-bottom: 15px; line-height: 1.5;">
+                        Ayúdanos a conservar los mejores recuerdos de este día. Sube las fotos y videos que tomes durante el evento a nuestra carpeta compartida.
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1fCHrsFI7us2nBZZZdp-8WzXAtUsU-MA_?usp=sharing" target="_blank" class="btn-gold">Subir mis Fotos</a>
+                </div>
+                
+                <!-- FOTO 9: Momentos en vivo / Lluvia -->
+                <img src="assets/9.jpg" alt="Momentos Especiales" class="invitation-photo reveal-scale" style="margin-top: 25px;">
+            </div>
+
+            <!-- RSVP -->
+            <div class="section-card section-blue reveal-scale">
+                <div class="icon-badge badge-blue">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </div>
+                <div class="info-block">
+                    <div class="info-label">Confirmación de Asistencia</div>
+                    <div class="reveal" style="font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--text-dark); margin-bottom: 18px;">Por favor, confirma tu asistencia lo antes posible.</div>
+                    <div class="form-container reveal-scale">
+                        <input type="text" id="rsvp-name" class="form-input" placeholder="Escribe tu nombre completo">
+                        <select id="rsvp-status" class="form-input" onchange="toggleGuestInput()">
+                            <option value="">¿Asistirás al evento?</option>
+                            <option value="yes">Sí, ahí estaré</option>
+                            <option value="no">Lamentablemente no podré asistir</option>
+                        </select>
+                        <input type="number" id="rsvp-guests" class="form-input" placeholder="¿Cuántas personas asistirán?" min="1" style="display: none;">
+                        <button onclick="sendRSVP()" class="btn-gold" style="font-size: 15px; padding: 15px; width: 100%;">Confirmar por WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buenos Deseos -->
+            <div class="section-card section-silver reveal-scale">
+                <div class="icon-badge badge-silver">
+                    <svg viewBox="0 0 24 24" fill="#fff"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg>
+                </div>
+                <div class="info-block">
+                    <div class="info-label">Deja un mensaje para María Fernanda</div>
+                    <div class="form-container reveal-scale">
+                        <input type="text" id="wish-name" class="form-input" placeholder="Tu Nombre">
+                        <textarea id="wish-message" class="form-input" placeholder="Escribe tus buenos deseos para la quinceañera..."></textarea>
+                        <button onclick="sendWish()" class="btn-gold" style="font-size: 15px; padding: 15px; width: 100%;">Enviar Mensaje</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal" style="font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 3px; color: var(--main-secondary); margin-top: 15px; font-weight: bold;">
+                INVYTIA PREMIUM PREVIEW
+            </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setupScrollReveal();
+        });
+
+        const bgMusic = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        let isMusicPlaying = false;
+        const playIcon = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        const pauseIcon = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+
+        function toggleMusic() {
+            if (isMusicPlaying) { bgMusic.pause(); musicBtn.innerHTML = playIcon; }
+            else { bgMusic.play(); musicBtn.innerHTML = pauseIcon; }
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        function openEnvelope() {
+            const wrapper = document.querySelector('.envelope-wrapper');
+            const screen = document.getElementById('envelope-screen');
+            wrapper.classList.add('open');
+
+            animateMainTitle();
+
+            setTimeout(() => {
+                screen.classList.add('fade-out');
+                document.body.classList.add('content-active');
+                createFireflies(); // Activar los destellos mágicos
+
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.innerHTML = pauseIcon;
+                }).catch(() => {
+                    isMusicPlaying = false;
+                    musicBtn.innerHTML = playIcon;
+                });
+            }, 1200);
+        }
+
+        function animateMainTitle() {
+            const el = document.getElementById('main-title-anim');
+            const text = "María Fernanda";
+            el.innerHTML = '';
+            el.style.fontSize = '';
+            [...text].forEach((ch, i) => {
+                const span = document.createElement('span');
+                span.className = 'letter';
+                span.textContent = ch === ' ' ? '\u00A0' : ch;
+                span.style.animationDelay = `${0.35 + i * 0.05}s`; // Entrada más veloz en cascada
+                el.appendChild(span);
+            });
+            fitHeroName();
+        }
+
+        function fitHeroName() {
+            const el = document.getElementById('main-title-anim');
+            const overlay = el.closest('.hero-overlay');
+            if (!el || !overlay) return;
+            const maxWidth = overlay.clientWidth - 32;
+            let fontSize = parseFloat(getComputedStyle(el).fontSize);
+            let guard = 0;
+            while (el.scrollWidth > maxWidth && fontSize > 20 && guard < 60) {
+                fontSize -= 1;
+                el.style.fontSize = fontSize + 'px';
+                guard++;
+            }
+        }
+
+        window.addEventListener('resize', fitHeroName);
+
+        function setupScrollReveal() {
+            const targets = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+            targets.forEach(t => observer.observe(t));
+        }
+
+        function createFireflies() {
+            const container = document.getElementById('fireflies-container');
+            // Tonos celestes, platas y blancos para destellos mágicos
+            const colors = ['#e0f7fa', '#b2ebf2', '#81d4fa', '#ffffff', '#e9ecef'];
+            const count = 45; // Más cantidad para más magia
+
+            for (let i = 0; i < count; i++) {
+                const firefly = document.createElement('div');
+                firefly.classList.add('firefly');
+                const size = Math.random() * 4 + 2;
+                const left = Math.random() * 100;
+                const animDuration = Math.random() * 10 + 6;
+                const animDelay = Math.random() * 6;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                firefly.style.width = `${size}px`;
+                firefly.style.height = `${size}px`;
+                firefly.style.left = `${left}%`;
+                firefly.style.bottom = `-30px`;
+                firefly.style.background = color;
+                firefly.style.boxShadow = `0 0 15px 3px ${color}`;
+                firefly.style.animationDuration = `${animDuration}s`;
+                firefly.style.animationDelay = `${animDelay}s`;
+
+                container.appendChild(firefly);
+            }
+        }
+
+        // Fecha: 28 de Noviembre de 2026, 18:00:00 (Misa)
+        const eventDate = new Date("2026/11/28 18:00:00").getTime();
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }, 1000);
+
+        function toggleGuestInput() {
+            const status = document.getElementById("rsvp-status").value;
+            const guestInput = document.getElementById("rsvp-guests");
+            if (status === "yes") { guestInput.style.display = "block"; }
+            else { guestInput.style.display = "none"; guestInput.value = ""; }
+        }
+
+        function sendRSVP() {
+            const name = document.getElementById("rsvp-name").value.trim();
+            const status = document.getElementById("rsvp-status").value;
+            const guests = document.getElementById("rsvp-guests").value.trim();
+
+            if (name === "") { alert("Por favor, ingresa tu nombre completo."); return; }
+            if (status === "") { alert("Por favor, selecciona si asistirás o no."); return; }
+
+            let message = "";
+            if (status === "yes") {
+                if (guests === "" || parseInt(guests) < 1) {
+                    alert("Por favor, ingresa un número válido de personas que asistirán.");
+                    return;
+                }
+                message = encodeURIComponent(`¡Hola! Soy ${name}. Sí, confirmo mi asistencia a los XV años de María Fernanda. Asistiremos ${guests} persona(s).`);
+            } else {
+                message = encodeURIComponent(`¡Hola! Soy ${name}. Lamentablemente no podré asistir a los XV años de María Fernanda. ¡Muchas gracias por la invitación!`);
+            }
+
+            const phone = "522291373031";
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        function sendWish() {
+            const name = document.getElementById("wish-name").value.trim();
+            const wish = document.getElementById("wish-message").value.trim();
+            if (name === "" || wish === "") { alert("Por favor, ingresa tu nombre y un mensaje."); return; }
+            const phone = "522291373031";
+            const message = encodeURIComponent(`Hola María Fernanda, soy ${name}. Te dejo este mensaje con mucho cariño:\n\n"${wish}"`);
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
